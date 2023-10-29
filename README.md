@@ -1,5 +1,5 @@
 # LambertW-Infinite-Exponential-Tower-Fractal-Generator
-<h1> Welcome to a Western Univeristy USRI project! Here is are the steps to create your own Lambert W picture </h1>
+<h1> Welcome to a Western Univeristy USRI project! Here are the steps to create your own Lambert W picture </h1>
 
 <h2> You need C++, g++, mpfr and gmp modules instealled in your compiler while for Python you need the modules sys, csv, numpy, tracemalloc, time, pickle, matplotlib, random, colorsys and multiprocessing</h2> 
 
