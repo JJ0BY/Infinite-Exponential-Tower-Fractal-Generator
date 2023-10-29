@@ -2,6 +2,7 @@
 
 int main(){
 
+    //Settings START
     //increasing quality increases the quality of the picture but slows the function (I have made a 10000 pixel but it took 5-6 hours on an i5 12th gen)
     int halfquality = 2000; 
 
@@ -16,6 +17,8 @@ int main(){
 
     double imin = -2; 
 
+    //Settings END
+    
     //Choose which fractal make function to use, the last three functions produce almost the exact same picture
 
     //this function will make the fractal image array using brent algorithim  without looking one iteration deeper (MATHEMATICALLY DERIVED BUT VERY SLOW)
