@@ -1,0 +1,2 @@
+
+        GotoLine(file, (quality-i));
