@@ -20,11 +20,10 @@ The iteration <img src="https://rawgit.com/steventhornton/IteratedExponential/ma
 
 # Using the C++ program 
 
-There are multiple main functions used for producing the images in MAIN.cpp 
-It is called as
-```matlab
-iteratedExponential(workingDir, options);
-```
+There are multiple main functions used for producing the images in MAIN.cpp. Choose the function that seemes best for you purpose
+
+
+
 The `Images` folder is the location where images will be saved while the data for these images are located in the `Data` folder. 
 
 BE VERY CAREFUL OF THE DATA BEING OVERWRITTEN. 
