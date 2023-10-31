@@ -42,7 +42,7 @@ The main function is called fractalMake and here are it's settings
 | `functionMode` | 0 | Choose which type of function to use to generate the fractal. The values can only be in [0, 3]|
 | `bits` | 100 | The number of bits associated to the complex numbers within the program once they have an overflow issue. The bigger the number, the slower the program and I recommend that the bits value should be less than 10000. This value is only used for functionMode 2 and 3.|
 | `qualityPerUnit` | 500 | Number of pixels in each unit. For example, there are 4 units on the real axis using the default option, hence (4 * 1000 * 2 = 8000) pixels on the x-direction. I have set a limiter, such that if you try to generate more than 50 million pixels, it will prompt you for reassurance. So if you are calculating a lot of units, the qualityperUnit number should be smaller.|
-| `fileName` | data | The name of the csv file located in the Data folder where all the data generated will be saved.|
+| `fileName` | test_data | The name of the csv file located in the Data folder where all the data generated will be saved.|
 
 # Example
 ```C++
