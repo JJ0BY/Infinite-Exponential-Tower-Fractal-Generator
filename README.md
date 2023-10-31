@@ -77,13 +77,13 @@ BE VERY CAREFUL OF THE DATA BEING OVERWRITTEN WHEN ATTEMPTING TO RUN THE PROGRAM
 
 | Option Name | Default | Details |
 | ----------- | ------- | ------- |
-| `rmin` | -3 | The real boundary on the left. |
-| `rmax` | 1 | The real boundary on the right. It is recommended for this value to be 1 or less than 1 otherwise you will just get white pixels. |
-| `imin` | -2 | The imaginary boundary at the bottom. |
-| `imax` | 2 | The imaginary boundary at the top. |
+| `rmin` | -3 | The real boundary on the left. Should be the same number as the setting `rmin` in C++.|
+| `rmax` | 1 | The real boundary on the right. It is recommended for this value to be 1 or less than 1 otherwise you will just get white pixels. Should be the same number as the setting `rmax` in C++.|
+| `imin` | -2 | The imaginary boundary at the bottom. Should be the same number as the setting `imin` in C++.|
+| `imax` | 2 | The imaginary boundary at the top. Should be the same number as the setting `imax` in C++.|
 | `ImageName` | ITF | ITF stands for Iterated Tower Fractal|
-| `FilePath` | Data/test_data.csv | File path of the data.|
-| `qualityPerUnit` | 500 | Number of pixels in each unit. For example, there are 4 units on the real axis using the default option, hence (4 * 1000 * 2 = 8000) pixels on the x-direction. I have set a limiter, such that if you try to generate more than 50 million pixels, it will prompt you for reassurance. So if you are calculating a lot of units, the qualityperUnit number should be smaller.|
+| `FilePath` | Data/test_data.csv | File path of the data. Should be the same number as the setting in C++. |
+| `qualityPerUnit` | 500 | Number of pixels in each unit. Should be "\Data" + `fileName` + ".csv" where `fileName` is the setting used in C++.|
 | `LoadColorValues` | True | The colors are randomly selected, however if you wish to change the color scheme, go to CompletedTest2.ipynb and set `loadColor = False`. This will make a random new color scheme and replace the old color scheme on the file ColorMaps. I recommend saving the ColorMaps you like on a different folder and feel free to share any good color schemes on the Issues tab. .|
 
 # Example
