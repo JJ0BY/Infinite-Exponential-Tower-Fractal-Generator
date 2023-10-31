@@ -46,8 +46,8 @@ The main function is called fractalMake and here are it's settings
 
     int qualityPerUnit = 500; 
     int bits = 100;
-    int functionMode = 3; 
-    double rmin = -2; 
+    int functionMode = 0; 
+    double rmin = -3; 
     double rmax = 1; 
     double imax = 2; 
     double imin = -2; 
