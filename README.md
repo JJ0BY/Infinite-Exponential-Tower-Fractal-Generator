@@ -121,6 +121,6 @@ Output image:
 
 
 <p align="center">
-    <img alt="Iterated Exponential Fractal." src="https://github.com/JJ0BY/Infinite-Exponential-Tower-Fractal-Generator/blob/main/Images/ITF1full_Quality_1000.png?raw=true"/>
+    <img alt="Iterated Exponential Fractal." src="https://github.com/JJ0BY/Infinite-Exponential-Tower-Fractal-Generator/blob/main/Images/ITF_1_full_Quality_1000.png?raw=true"/>
 </p>
 
