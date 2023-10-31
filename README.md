@@ -36,7 +36,7 @@ The main function is called fractalMake and
 | Option Name | Default | Details |
 | ----------- | ------- | ------- |
 | `rmin` | -3 | The real boundary on the left. |
-| `rmax` | 1 | The real boundary on the right. It is recommended for this value to be 1 or less than 1 otherwise you will just get white pixels due to the image of the function. |
+| `rmax` | 1 | The real boundary on the right. It is recommended for this value to be 1 or less than 1 otherwise you will just get white pixels. |
 | `imin` | -2 | The imaginary boundary at the bottom. |
 | `imax` | 2 | The imaginary boundary at the top. |
 | `functionMode` | 0 | Choose which type of function to use to generate the fractal. The values can only be in [0, 3]|
