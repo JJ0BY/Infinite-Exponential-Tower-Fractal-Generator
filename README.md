@@ -49,8 +49,8 @@ The main function is called fractalMake and here are it's settings
     int functionMode = 3; 
     double rmin = -2; 
     double rmax = 1; 
-    double imax = 3; 
-    double imin = 0; 
+    double imax = 2; 
+    double imin = -2; 
     string fileName = "test_data"; 
 
     fractalMake(rmin, rmax, imin, imax, qualityPerUnit, fileName, functionMode, bits); 
@@ -118,7 +118,9 @@ You can see the image on jupyter but if your picture has a quality greater than 
 
 Output image:
 
+
+
 <p align="center">
-    <img alt="Iterated Exponential Fractal." src="https://github.com/JJ0BY/Infinite-Exponential-Tower-Fractal-Generator/blob/main/Images/LWF3_Quality_5000_Bits_5000.png?raw=true"/>
+    <img alt="Iterated Exponential Fractal." src="https://github.com/JJ0BY/Infinite-Exponential-Tower-Fractal-Generator/blob/main/Images/ITF1full_Quality_1000.png?raw=true"/>
 </p>
 
