@@ -20,9 +20,18 @@ The iteration <img src="https://rawgit.com/steventhornton/IteratedExponential/ma
 
 # Using the C++ program 
 
-There are multiple main functions used for producing the images in MAIN.cpp. Choose the function that seemes best for you purpose
+There are multiple main functions used for producing the images in MAIN.cpp. Choose the function that seemes best for your purpose
 
+## Functions
 
+| Function Name | Details |
+| ----------- | ------- |
+| `rmin` | The real boundary on the left. |
+| `rmax` | The real boundary on the right. It is recommended for this value to be 1 or less than 1 otherwise you will just get white pixels due to the image of the function. |
+| `imin` | The imaginary boundary at the bottom. |
+| `imax` | The imaginary boundary at the top. |
+| `bits` | The number of bits associated to the complex numbers within the program once they have an overflow issue. The bigger the number, the slower the program and I recommend that the bits value should be less than 10000.|
+| `halfquality` | Half the number of pixels in the image. The bigger the number, the slower the program and I recommend that the halfquality value should be less than 10000.|
 
 The `Images` folder is the location where images will be saved while the data for these images are located in the `Data` folder. 
 
@@ -39,7 +48,7 @@ The colors are randomly selected, however if you wish to change the color scheme
 | `imin` | -2 | The imaginary boundary at the bottom. |
 | `imax` | 2 | The imaginary boundary at the top. |
 | `bits` | 100 | The number of bits associated to the complex numbers within the program once they have an overflow issue. The bigger the number, the slower the program and I recommend that the bits value should be less than 10000.|
-| `halfquality` | 2000. | Half the number of pixels in the image. The bigger the number, the slower the program and I recommend that the halfquality value should be less than 10000.|
+| `halfquality` | 2000 | Half the number of pixels in the image. The bigger the number, the slower the program and I recommend that the halfquality value should be less than 10000.|
 
 # Example
 ```C++
