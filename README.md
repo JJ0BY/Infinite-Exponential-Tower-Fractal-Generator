@@ -1,7 +1,7 @@
-# LambertW-Infinite-Exponential-Tower-Fractal-Generator
-<h1> Welcome to a Western Univeristy USRI project! Here are the steps to create your own Lambert W picture </h1>
+# Infinite-Exponential-Tower-Fractal-Generator
+<h1> Welcome to a Western University USRI project! Here are the steps to create your own fractal picture </h1>
 
-<h2> You need C++, g++, mpfr and gmp modules instealled in your compiler while for Python you need the modules sys, csv, numpy, tracemalloc, time, pickle, matplotlib, random, colorsys and multiprocessing</h2> 
+<h2> You need C++, g++, mpfr and gmp modules installed in your compiler while for Python you need the modules sys, csv, numpy, tracemalloc, time, pickle, matplotlib, random, colorsys and multiprocessing</h2> 
 
 - &nbsp; Go to MAIN.cpp, change the settings to what you want and build the MAIN.exe file using the following command "g++  MAIN.cpp -o MAIN -lmpfr -lgmp"
 - &nbsp; Run the MAIN.exe file, this will take some time depending on your computer and the settings you have picked. 
