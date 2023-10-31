@@ -133,6 +133,123 @@ int FindCycle(double a, double b){
 
 }
 
+//A faster version of FindCycle but is using an improper error function (but produces an almost identitcal image much faster)
+int fastFindCycle(double a, double b){
+
+    //fast return rectangele of period 2 
+    if ((abs(b) < 0.6) and (a < -1.3)){
+
+        return 2; 
+    }
+    
+    //fast return circle period 1 
+    if (sqrt((pow(a, 2)+pow(b,2))) <= 1){
+
+        return 1; 
+    }
+    
+    //fast return 0 if value not in image of -W(-xe^-x)=x 
+    if (a >= b/tan(b)){
+
+        return 0; 
+    }
+
+    //intialize variables 
+    int l1 = 0, i = 0, l0 = 200, multiple = 1, rate = 0, l; 
+
+    double error = 1;
+
+    double const minErr = pow(10, -30), doubPi2 = 2*M_PI;  
+
+    int const maxCycleLen = l0;
+
+    double real = exp(-a)*(a*cos(b)+b*sin(b));
+
+    double imag = exp(-a)*(b*cos(b)-a*sin(b));
+
+    double const Ox = atan2(imag, real); 
+
+    double const rx = sqrt(pow(real, 2)+pow(imag, 2)); 
+
+    double phr =0, hr=0, tr=0, phO=0, hO=0, tO=0, O, R; 
+
+    //while error is too big do the follwoing 
+    while (error > minErr) {
+
+        //if the iteration takes too long return 0 
+        if (i >= 20000){
+
+            return 0; 
+        }
+
+        //If the cycle is equal to multiple then do the following 
+        if (l1 >= multiple) {
+
+            tr = hr; 
+
+            tO = hO;
+
+            multiple *= 2; 
+
+            l1 = 0; 
+
+        }
+
+        //Find the next iteration  
+
+        O = Ox+phO;
+
+        R = phr*rx; 
+
+        hr = exp(R*cos(O));
+
+        hO = R*sin(O);
+
+        //if hr is infinity return maxCycleLen which will be represented as Overflow 
+        if (isinf(hr) == 1){
+            
+            return maxCycleLen; 
+
+        }
+
+        //calculate absolute error percentage of previous and current iteration 
+        error = abs(tr - hr) + abs(hO-tO);
+
+        //error = pow(tr, 2)+pow(hr, 2)-2*tr*hr*cos(tO-hO); 
+
+        //if error is not calculatable, set error to 1 
+        if ((isinf(error) == 1) or (isnan(error) == 1)){
+
+            error = 1; 
+        }
+
+        //cout << hr << " e2 " << error << "\n"; 
+
+        //reinatilize the variables 
+        phr = hr; 
+
+        phO = hO; 
+
+        i++; 
+
+        l1++; 
+
+        //Find the lowest period length greater than 0 
+        if(error < pow(10, (-5-rate))){
+
+            if((l0 > l1) and (l1 != 0)){
+                l0 = l1;
+                rate++;
+
+            }
+        }
+    }
+
+    //return the period length 
+    return l0; 
+
+}
+
 //deepbrent function to look one iteration into the overflow region. 
 //This function is not be used on its own 
 int deepFindCycle(double hr, double hO, double rx, double Ox, int bits){
@@ -383,142 +500,8 @@ int FindCycle2(double a, double b, int bits){
 
 }
 
-//brent cycle algorithim with the deepFindCycle function and some intial conditions to speed up fractal making. 
-//This algorithim was made after seeing the image of the fracal. 
+//A faster version but is using an improper error function and after making some assumptions on the image (but produces an almost identitical image)
 int fastFindCycle2(double a, double b, int bits){
-
-    //fast return rectangele of period 2 
-    if ((abs(b) < 0.6) and (a < -1.3)){
-
-        return 2; 
-    }
-    
-    //fast return circle period 1 
-    if (sqrt((pow(a, 2)+pow(b,2))) <= 1){
-
-        return 1; 
-    }
-    
-    //fast return 0 if value not in image of -W(-xe^-x)=x 
-    if (a >= b/tan(b)){
-
-        return 0; 
-    }
-
-    //intialize variables 
-    int l1 = 0, i = 0, l0 = 200, multiple = 1, rate = 0, l; 
-
-    double error = 1;
-
-    double const minErr = pow(10, -30);  
-
-    int const maxCycleLen = l0;
-
-    double real = exp(-a)*(a*cos(b)+b*sin(b));
-
-    double imag = exp(-a)*(b*cos(b)-a*sin(b));
-
-    double const Ox = atan2(imag, real); 
-
-    double const rx = sqrt(pow(real, 2)+pow(imag, 2)); 
-
-    double phr =0, hr=0, tr=0, phO=0, hO=0, tO=0, O, R; 
-
-    //while error is too big do the follwoing 
-    while (error > minErr) {
-
-        //if the iteration takes too long return 0 
-        if (i >= 20000){
-
-            return 0; 
-        }
-
-        //If the cycle is equal to multiple then do the following 
-
-        if ((l1 >= multiple) and (tr != hr) and (tO != hO)){
-
-            tr = hr; 
-
-            tO = hO;
-
-            multiple *= 2; 
-
-            l1 = 0; 
-
-        }
-
-        //Find the next iteration  
-
-        O = Ox+phO;
-
-        R = phr*rx; 
-
-        hr = exp(R*cos(O));
-
-        hO = R*sin(O);
-
-        //if hr is infinity return maxCycleLen which will be represented as Overflow 
-        if (isinf(hr) == 1){
-            
-            //use the deep brent algorihtim 
-            l = deepFindCycle(phr, phO, rx, Ox, bits); 
-            
-            // if l is greater than 0 do the following, otherwise return maxcCycleLen which will be represented as Overflow 
-            if (l > 0){
-                
-                hr = 0; 
-                hO = 0; 
-
-                l1+=l; 
- 
-            }
-            else{
-                return maxCycleLen; 
-            }
-
-        }
-
-        //calculate absolute error percentage of previous and current iteration 
-        //error = abs(tr - hr) + abs(hO-tO);
-
-        error = pow(tr, 2)+pow(hr, 2)-2*tr*hr*cos(tO-hO); 
-
-        //if error is not calculatable, set error to 1 
-        if ((isinf(error) == 1) or (isnan(error) == 1)){
-
-            error = 1; 
-
-        }
-
-        //cout << hr << " e1 " << tr << " " << error << "\n"; 
-
-        //reinatilize the variables 
-        phr = hr; 
-
-        phO = hO; 
-
-        i++; 
-
-        l1++; 
-
-        //Find the lowest period length greater than 0 
-        if(error < pow(10, (-5-rate))){
-
-            if((l0 > l1) and (l1 != 0)){
-                l0 = l1;
-                rate++;
-
-            }
-        }
-    }
-
-    //return the period length 
-    return l0; 
-
-}
-
-//A faster version but is using an improper error function (but produces an almost identitcal image)
-int fastFindCycle3(double a, double b, int bits){
 
     //fast return rectangele of period 2 
     if ((abs(b) < 0.6) and (a < -1.3)){
@@ -649,220 +632,111 @@ int fastFindCycle3(double a, double b, int bits){
 }
 
 //This function will make the fractal image array using FindCycle algorithim 
-int fractalMake(double rmin, double rmax, double imin, double imax, int quality, string output){
-
-    cout << "Program started\n"; 
-
-    quality = 2*quality; 
-
-    double rspace = (rmax-rmin)/(quality-1), ispace = (imax-imin)/(quality-1);
-
-    auto start = high_resolution_clock::now();
-
-    ofstream out("Data/" + output);
-
-    for (int i = 0;i < quality;i++){   
-
-        cout << "\r" << i+1 << " of " << quality;
-
-        for (int j = 0;j < quality;j++)
-        {   
-            //out << "| " << rmin+j*rspace << " " << -i*ispace; 
-
-            out << FindCycle(rmin+j*rspace, imax-i*ispace)<<",";
-        }
-
-        out << endl; 
-    }
-
-    auto stop = high_resolution_clock::now();
-
-    auto duration = duration_cast<seconds>(stop - start);
-
-    cout << "\nTime taken by function: "<< duration.count() << " seconds" << endl;
-
-    cout << "Efficiency: " << pow(quality, 2)/(int) duration.count() << " entries/second"<< endl;
-
-    return 0;
-}
-
-//this function will make the fractal image array using FindCycle2 algorithim with one more iteration into the overflow region 
-int fractalMake2(double rmin, double rmax, double imin, double imax, int quality, string output, int bits = 1000){
-
-    cout << "Program started\n"; 
-
-    quality = 2*quality; 
-
-    double rspace = (rmax-rmin)/(quality-1), ispace = (imax-imin)/(quality-1);
-
-    //cout << rspace << " " << ispace << "\n"; 
-
-    auto start = high_resolution_clock::now();
-
-    ofstream out("Data/" + output);
-
-    for (int i = 0;i < quality;i++){   
-
-        cout << "\r" << i+1 << " of " << quality;
-
-        for (int j = 0;j < quality;j++)
-        {   
-            //out << rmin+j*rspace << " " << imax-i*ispace << ","; 
-
-            out << FindCycle2(rmin+j*rspace, imax-i*ispace, bits) << ",";
-
-        }
-
-        out << "\n"; 
-    }
-
-    auto stop = high_resolution_clock::now();
-
-    auto duration = duration_cast<seconds>(stop - start);
-
-    cout << "\nTime taken by function: "<< duration.count() << " seconds" << endl;
-
-    cout << "Efficiency: " << pow(quality, 2)/(int) duration.count() << " entries/second"<< endl;
-
-    return 0;
-}
-
-//Experimental function to see if it was faster to mirror the text across the x axis (it was not) DO NOT USE
-int halfMake(int halfquality, int quality, double rmin, double rspace, double imax,double ispace, string output, int bits = 1000){
-
-    ofstream out("Data/" + output);
+int fractalMake(double rmin, double rmax, double imin, double imax, int qualityPerUnit, string output, int functionMode = 0, int bits = 1000){
     
-    int i, j; 
-
-    for (i = 0;i < halfquality;i++){   
-
-        cout << "\r" << i+1 << " of " << halfquality;
-
-        for (j = 0;j < quality;j++){   
-
-            //out << rmin+j*rspace << " " << imax-i*ispace << ","; 
-            out << fastFindCycle2(rmin+j*rspace, imax-i*ispace, bits) << ",";
-
-        }
-
-        out << "\n"; 
-    }
-/*
-    for (i = 0;i < halfquality;i++){   
-
-        out << "\n"; 
-    }
-*/
-    return 0; 
-}
-
-//this function will make the fractal image array using fastFindCycle2 algorithim with one more iteration into the overflow region 
-int fastFractalMake2(double rmin, double rmax, double imin, double imax, int halfquality, string output, int bits = 1000){
-
-    cout << "Program started\n"; 
-
-    int i, j; 
-
-    int quality = 2*halfquality; 
-
-    double rspace = (rmax-rmin)/(quality-1), ispace = (imax-imin)/(quality-1);
-
     auto start = high_resolution_clock::now();
 
-    ofstream out("Data/" + output);
+    std :: cout << "Program started\n"; 
 
-    for (i = 0;i < quality;i++){   
+    int quality = 2*qualityPerUnit; 
 
-        cout << "\r" << i+1 << " of " << quality;
+    double rquality = (rmax-rmin)*quality, iquality = (imax-imin)*quality; 
 
-        for (j = 0;j < quality;j++){   
+    double rspace = (rmax-rmin)/(rquality-1), ispace = (imax-imin)/(iquality-1);
 
-            //out << rmin+j*rspace << " " << imax-i*ispace << ","; 
-            out << fastFindCycle2(rmin+j*rspace, imax-i*ispace, bits) << ",";
+    if (rquality*iquality > 50000000){
 
+        std :: cout << "You are trying to generate data for an image with over 50 million pixels. This will take a lot of time and might result in a crash. Press 1 to continue.\n";
+
+        cin >> quality; 
+
+        if (quality != 1){
+            return 0; 
         }
 
-        out << "\n"; 
     }
 
-    /* The following code was experimental to see if it was faster to mirror the text across the x axis (it was not)
+    std :: cout << "\nYou are creating a " << rquality << " X " << iquality << " image data file.\n"; 
 
-    halfMake(halfquality, quality, rmin, rspace, imax, ispace, output, bits); 
+    ofstream out("Data/" + output + ".csv");
+
+    switch (functionMode){
+
+        case 0:
+
+            for (int i = 0;i < iquality;i++){   
+
+                std :: cout << "\r" << i+1 << " of " << iquality;
+
+                for (int j = 0;j < rquality;j++){   
+
+                    out << FindCycle(rmin+j*rspace, imax-i*ispace)<<",";
+                }
+
+                out << endl; 
+            }
+
+            break; 
+
+        case 1: 
+
+            for (int i = 0;i < iquality;i++){   
+
+                std :: cout << "\r" << i+1 << " of " << iquality;
+
+                for (int j = 0;j < rquality;j++){   
+
+                    out << fastFindCycle(rmin+j*rspace, imax-i*ispace)<<",";
+                }
+
+                out << endl; 
+            }
+            break; 
+
+        case 2: 
+
+            for (int i = 0;i < iquality;i++){   
+
+                std :: cout << "\r" << i+1 << " of " << iquality;
+
+                for (int j = 0;j < rquality;j++){   
+
+                    out << FindCycle2(rmin+j*rspace, imax-i*ispace, bits)<<",";
+                }
+
+                out << endl; 
+            }
+            break; 
+
+        case 3: 
+
+            for (int i = 0;i < iquality;i++){   
+
+                std :: cout << "\r" << i+1 << " of " << iquality;
+
+                for (int j = 0;j < rquality;j++){   
+
+                    out << fastFindCycle2(rmin+j*rspace, imax-i*ispace, bits)<<",";
+                }
+
+                out << endl; 
+            }
+            break; 
+
+        default: 
+
+            std :: cout << " Improper function used. Values can only be integers in [0, 3]"; 
+            return 0; 
+
+    }
 
     auto stop = high_resolution_clock::now();
 
     auto duration = duration_cast<seconds>(stop - start);
 
-    cout << "\nTime taken for part 1: "<< duration.count() << " seconds" << endl;
+    std :: cout << "\nTime taken by function: "<< duration.count() << " seconds" << endl;
 
-    fstream file("Data/" + output);
-
-    string line;
-
-    cout << "\nPart 2: \n"; 
-
-    for (i = 0;i < halfquality;i++){   
-
-        cout << "\r" << i+1 << " of " << halfquality;
-
-        GotoLine(file, halfquality-i);
-
-        file >> line;
-
-        GotoLine(file, halfquality+i+1);
-
-        file << line << "\n";
-
-    }
-    */
-
-    auto stop = high_resolution_clock::now();
-
-    auto duration = duration_cast<seconds>(stop - start);
-
-    cout << "\nTime taken by function: "<< duration.count() << " seconds" << endl;
-
-    cout << "Efficiency: " << pow(quality, 2)/(int) duration.count() << " entries/second"<< endl;
-
-    return 0;
-}
-
-//this function will make the fractal image array using fastFindCycle3 algorithim with one more iteration into the overflow region 
-int fastFractalMake3(double rmin, double rmax, double imin, double imax, int halfquality, string output, int bits = 1000){
-
-    cout << "Program started\n"; 
-
-    int i, j; 
-
-    int quality = 2*halfquality; 
-
-    double rspace = (rmax-rmin)/(quality-1), ispace = (imax-imin)/(quality-1);
-
-    auto start = high_resolution_clock::now();
-
-    ofstream out("Data/" + output);
-
-    for (i = 0;i < quality;i++){   
-
-        cout << "\r" << i+1 << " of " << quality;
-
-        for (j = 0;j < quality;j++){   
-
-            //out << rmin+j*rspace << " " << imax-i*ispace << ","; 
-            out << fastFindCycle3(rmin+j*rspace, imax-i*ispace, bits) << ",";
-
-        }
-
-        out << "\n"; 
-    }
-
-    auto stop = high_resolution_clock::now();
-
-    auto duration = duration_cast<seconds>(stop - start);
-
-    cout << "\nTime taken by function: "<< duration.count() << " seconds" << endl;
-
-    cout << "Efficiency: " << pow(quality, 2)/(int) duration.count() << " entries/second"<< endl;
+    std :: cout << "Efficiency: " << (rquality*iquality)/(int) duration.count() << " entries/second"<< endl;
 
     return 0;
 }
