@@ -1,12 +1,124 @@
-# LambertW-Infinite-Exponential-Tower-Fractal-Generator
-<h1> Welcome to a Western Univeristy USRI project! Here are the steps to create your own Lambert W picture </h1>
+# Infinite-Exponential-Tower-Fractal-Generator
+<h1> Welcome to a Western University USRI project! Here are the steps to create your own fractal picture similar to the picture found on https://rcorless.github.io/Two-cycles.html </h1>
 
-<h2> You need C++, g++, mpfr and gmp modules instealled in your compiler while for Python you need the modules sys, csv, numpy, tracemalloc, time, pickle, matplotlib, random, colorsys and multiprocessing</h2> 
+## Iterated Exponential Fractal
 
-- &nbsp; Go to MAIN.cpp, change the settings to what you want and build the MAIN.exe file using the following command "g++  MAIN.cpp -o MAIN -lmpfr -lgmp"
-- &nbsp; Run the MAIN.exe file, this will take some time depending on your computer and the settings you have picked. 
-- &nbsp; Once MAIN.exe file is finished running, go to CompletedTest2.ipynb and set the same settings as you have in MAIN.cpp and run everything.
-- &nbsp; You can see the image on jupyter but if your picture has a quality greater than 2000, it is better to directly see it by downloading the picture you made located in Images/ and seeing it on your computer. 
+The iteration  where <img  can either diverge or converge to a cycle. This repository provides the code for plotting these cycle lengths in the complex plane. Different colors are used to represent the different cycle lengths. Black typically indicates the divergence, overflow or underflow in the iteration while white represents that the program took too long too find the cycle length of that given point.
 
+#### C++ Requirements
+- The mpfr and gmp modules must be installed.
+- The brent.h file must be in the same folder for it to properly work except for LICENSE and README.md. 
 
+#### Python Requirements
+- The sys, csv, numpy, tracemalloc, time, pickle, matplotlib, random, colorsys and multiprocessing modules must be installed.
+- All the python and ipython files in this repository must be in the same folder, for it to properly work except for LICENSE and README.md. 
+
+# Using the C++ program to make the data
+
+The main function is called fractalMake and here are it's settings 
+
+## Function modes
+
+| Function mode # | Details |
+| ----------- | ------- |
+| 0 | Will make the data in a mathematically derived way but is slow. This will result in an image similar to the fractal seen in https://orcca.on.ca/LambertW/. |
+| 1 | Will make the data using some assumptions after looking at the fractal image we produced from `FunctionMode = 0` and it uses an improper error function but it is faster. |
+| 2 | Will make the data in a mathematically derived way and allow us to look one cycle deeper into any overflow regions but is slower than `fractalMake`. This will result in an image similar to the fractal seen in the example at the very bottom. |
+| 3 | Will make the data using some assumptions after looking at the fractal image we produced from `FunctionMode = 2` and it uses an improper error function but it is faster. |
+
+## Options
+
+| Option Name | Default | Details |
+| ----------- | ------- | ------- |
+| `rmin` | -3 | The real boundary on the left. |
+| `rmax` | 1 | The real boundary on the right. It is recommended for this value to be 1 or less than 1 otherwise you will just get white pixels. |
+| `imin` | -2 | The imaginary boundary at the bottom. |
+| `imax` | 2 | The imaginary boundary at the top. |
+| `functionMode` | 3 | Choose which type of function to use to generate the fractal. The values can only be in [0, 3]|
+| `bits` | 100 | The number of bits associated to the complex numbers within the program once they have an overflow issue. The bigger the number, the slower the program and I recommend that the bits value should be less than 10000. This value is only used for functionMode 2 and 3.|
+| `qualityPerUnit` | 500 | Number of pixels in each unit. For example, there are 4 units on the real axis using the default option, hence (4 * 1000 * 2 = 8000) pixels on the x-direction. I have set a limiter, such that if you try to generate more than 50 million pixels, it will prompt you for reassurance. So if you are calculating a lot of units, the qualityperUnit number should be smaller.|
+| `fileName` | test_data | The name of the csv file located in the Data folder where all the data generated will be saved.|
+
+# Example
+```C++
+
+    #include "brent.h"
+
+    int qualityPerUnit = 500; 
+    int bits = 100;
+    int functionMode = 3; 
+    double rmin = -2; 
+    double rmax = 1; 
+    double imax = 3; 
+    double imin = 0; 
+    string fileName = "test_data"; 
+
+    fractalMake(rmin, rmax, imin, imax, qualityPerUnit, fileName, functionMode, bits); 
+    
+    cout << "\n\n press any button to quit the program."; 
+    
+    cin.get(); 
+    
+    return 0; 
+```
+
+Go to MAIN.cpp, change the settings to what you want and build the MAIN.exe file using the following command "g++  MAIN.cpp -o MAIN -lmpfr -lgmp" or "c++  MAIN.cpp -o MAIN -lmpfr -lgmp"
+
+The data generated by the program is located in the `Data` folder. 
+
+BE VERY CAREFUL OF THE DATA BEING OVERWRITTEN WHEN ATTEMPTING TO RUN THE PROGRAM AGAIN (Make sure the file name is different if you wish to keep the data). 
+
+# Using the python program to make the image using the data
+
+Once MAIN.exe file is finished running, go to ImageMaker python or ipython file and set the same settings as you have in MAIN.cpp and run everything.
+
+## Options
+
+| Option Name | Default | Details |
+| ----------- | ------- | ------- |
+| `rmin` | -3 | The real boundary on the left. Should be the same number as the setting `rmin` in C++.|
+| `rmax` | 1 | The real boundary on the right. It is recommended for this value to be 1 or less than 1 otherwise you will just get white pixels. Should be the same number as the setting `rmax` in C++.|
+| `imin` | -2 | The imaginary boundary at the bottom. Should be the same number as the setting `imin` in C++.|
+| `imax` | 2 | The imaginary boundary at the top. Should be the same number as the setting `imax` in C++.|
+| `ImageName` | ITF | ITF stands for Iterated Tower Fractal|
+| `FilePath` | Data/test_data.csv | File path of the data. Should be the same number as the setting in C++. |
+| `qualityPerUnit` | 500 | Number of pixels in each unit. Should be "\Data" + `fileName` + ".csv" where `fileName` is the setting used in C++.|
+| `LoadColorValues` | True | The colors are randomly selected, however if you wish to change the color scheme, go to CompletedTest2.ipynb and set `loadColor = False`. This will make a random new color scheme and replace the old color scheme on the file ColorMaps. I recommend saving the ColorMaps you like on a different folder and feel free to share any good color schemes on the Issues tab. .|
+
+# Example
+
+```Python
+    import sys
+    sys.path.append("..") 
+    from FractalCreation import FractalCreation
+    import csv
+    import numpy
+    
+    rmin = -3
+    rmax = 1
+    imin = -2
+    imax = 2
+    qualityPerUnit = 500
+    FilePath = "Data/test_data.csv"
+    ImageName = "ITF"
+    LoadColorValues = True 
+    
+    matrix2 = np.genfromtxt(FilePath, delimiter=",")
+    OBJ = FractalCreation(rmin, rmax, imin, imax, qualityPerUnit)
+    
+    matrix2 = np.delete(matrix2, -1, 1) 
+    matrix2[matrix2 == 0] = np.nan
+    dpi_val = max(matrix2.shape[0], matrix2.shape[1])/20 
+    
+    OBJ.PlotSave(Matrix=matrix2, name=f'{ImageName}_Quality_{qualityPerUnit}', DPI=dpi_val, loadColor=LoadColorValues)
+
+```
+
+You can see the image on jupyter but if your picture has a quality greater than 2000, it is better to directly see it by downloading the picture you made located in Images/ and seeing it on your computer. 
+
+Output image:
+
+<p align="center">
+    <img alt="Iterated Exponential Fractal." src="https://github.com/JJ0BY/Infinite-Exponential-Tower-Fractal-Generator/blob/main/Images/LWF3_Quality_5000_Bits_5000.png?raw=true"/>
+</p>
 
