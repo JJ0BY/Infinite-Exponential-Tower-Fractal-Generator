@@ -3,7 +3,7 @@
 
 ## Iterated Exponential Fractal
 
-The iteration <img src="https://rawgit.com/steventhornton/IteratedExponential/master/svgs/fe28dcd3c561e677c1867ff53257e2ac.svg" align=middle width=78.29226pt height=23.784120000000012pt/> where <img src="https://rawgit.com/steventhornton/IteratedExponential/master/svgs/8aaad2aa848320318ffb11a51bdfe36f.svg" align=middle width=50.2794pt height=23.026680000000013pt/> can either diverge or converge to a cycle. This repository provides the code for plotting these cycle lengths in the complex plane. Different colors are used to represent the different cycle lengths. Black typically indicates the divergence, overflow or underflow in the iteration while white represents that the program took too long too find the cycle length of that given point.
+The iteration  where <img  can either diverge or converge to a cycle. This repository provides the code for plotting these cycle lengths in the complex plane. Different colors are used to represent the different cycle lengths. Black typically indicates the divergence, overflow or underflow in the iteration while white represents that the program took too long too find the cycle length of that given point.
 
 #### C++ Requirements
 - The mpfr and gmp modules must be installed.
