@@ -22,16 +22,14 @@ The iteration <img src="https://rawgit.com/steventhornton/IteratedExponential/ma
 
 There are multiple main functions used for producing the images in MAIN.cpp. Choose the function that seemes best for your purpose
 
-## Functions
+## Function modes
 
-| Function Name | Details |
+| Function mode # | Details |
 | ----------- | ------- |
-| `rmin` | The real boundary on the left. |
-| `rmax` | The real boundary on the right. It is recommended for this value to be 1 or less than 1 otherwise you will just get white pixels due to the image of the function. |
-| `imin` | The imaginary boundary at the bottom. |
-| `imax` | The imaginary boundary at the top. |
-| `bits` | The number of bits associated to the complex numbers within the program once they have an overflow issue. The bigger the number, the slower the program and I recommend that the bits value should be less than 10000.|
-| `halfquality` | Half the number of pixels in the image. The bigger the number, the slower the program and I recommend that the halfquality value should be less than 10000.|
+| 0 | Will make the data in a mathematically derived way but is slow. This will result in an image similar to the fractal seen in https://orcca.on.ca/LambertW/. |
+| 1 | Will make the data using some assumptions after looking at the fractal image we produced from `FunctionMode = 0` and it uses an improper error function but it is very faster. |
+| 2 | Will make the data in a mathematically derived way and allow us to look one cycle deeper into any overflow regions but is slower than `fractalMake`. This will result in an image similar to the fractal seen in the example at the very bottom. |
+| 3 | Will make the data using some assumptions after looking at the fractal image we produced from `FunctionMode = 2` and it uses an improper error function but it is faster. |
 
 The `Images` folder is the location where images will be saved while the data for these images are located in the `Data` folder. 
 
@@ -47,8 +45,8 @@ The colors are randomly selected, however if you wish to change the color scheme
 | `rmax` | 1 | The real boundary on the right. It is recommended for this value to be 1 or less than 1 otherwise you will just get white pixels due to the image of the function. |
 | `imin` | -2 | The imaginary boundary at the bottom. |
 | `imax` | 2 | The imaginary boundary at the top. |
-| `bits` | 100 | The number of bits associated to the complex numbers within the program once they have an overflow issue. The bigger the number, the slower the program and I recommend that the bits value should be less than 10000.|
-| `halfquality` | 2000 | Half the number of pixels in the image. The bigger the number, the slower the program and I recommend that the halfquality value should be less than 10000.|
+| `bits` | 100 | The number of bits associated to the complex numbers within the program once they have an overflow issue. The bigger the number, the slower the program and I recommend that the bits value should be less than 10000. This value is only used for functionMode 2 and 3.|
+| `qualityPerUnit` | 500 | Number of pixels in each unit. For example, there are 4 units on the real axis using the default option, hence (4 * 1000 * 2 = 8000) pixels on the x-direction. I have set a limiter, such that if you try to generate more than 50 million pixels, it will prompt you to be sure. So if you are calculating a lot of units, the qualityperUnit number should be smaller.|
 
 # Example
 ```C++
