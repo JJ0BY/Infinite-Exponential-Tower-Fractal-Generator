@@ -3,7 +3,7 @@
 
 ## Iterated Exponential Fractal
 
-The iteration  where  <img src="https://github.com/JJ0BY/Infinite-Exponential-Tower-Fractal-Generator/blob/main/READMEimages/EQ1.png?raw=true" align=top height=20pt/>  can either diverge or converge to a cycle. This repository provides the code for plotting these cycle lengths in the complex plane. Different colors are used to represent the different cycle lengths. Black typically indicates the divergence, overflow or underflow in the iteration while white represents that the program took too long too find the cycle length of that given point.
+The iteration  where  <img src="https://github.com/JJ0BY/Infinite-Exponential-Tower-Fractal-Generator/blob/main/READMEimages/EQ1.png?raw=true" align=top height=20pt/>  can either diverge or converge to a cycle. This repository provides the code for plotting teh cycle lengths given the u values in the complex plane. Different colors are used to represent the different cycle lengths. Black indicates the divergence, overflow or underflow in the iteration while white represents that the program took too long too find the cycle length of that given point.
 
 
 
