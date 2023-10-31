@@ -27,7 +27,7 @@ The main function is called fractalMake and
 | Function mode # | Details |
 | ----------- | ------- |
 | 0 | Will make the data in a mathematically derived way but is slow. This will result in an image similar to the fractal seen in https://orcca.on.ca/LambertW/. |
-| 1 | Will make the data using some assumptions after looking at the fractal image we produced from `FunctionMode = 0` and it uses an improper error function but it is very faster. |
+| 1 | Will make the data using some assumptions after looking at the fractal image we produced from `FunctionMode = 0` and it uses an improper error function but it is faster. |
 | 2 | Will make the data in a mathematically derived way and allow us to look one cycle deeper into any overflow regions but is slower than `fractalMake`. This will result in an image similar to the fractal seen in the example at the very bottom. |
 | 3 | Will make the data using some assumptions after looking at the fractal image we produced from `FunctionMode = 2` and it uses an improper error function but it is faster. |
 
