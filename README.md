@@ -119,6 +119,6 @@ You can see the image on jupyter but if your picture has a quality greater than 
 Output image:
 
 <p align="center">
-    <img alt="Iterated Exponential Fractal." src="[https://s3.amazonaws.com/stevenethornton.github/IterExpFractal_800.png](https://github.com/JJ0BY/Infinite-Exponential-Tower-Fractal-Generator/blob/main/Images/ImagesCompact/imageTesting_NoOverflow_C++_Quality_3000_Bits_20000.png?raw=true)https://github.com/JJ0BY/Infinite-Exponential-Tower-Fractal-Generator/blob/main/Images/ImagesCompact/imageTesting_NoOverflow_C++_Quality_3000_Bits_20000.png?raw=true"/>
+    <img alt="Iterated Exponential Fractal." src="https://github.com/JJ0BY/Infinite-Exponential-Tower-Fractal-Generator/blob/main/Images/LWF3_Quality_5000_Bits_5000.png?raw=true"/>
 </p>
 
