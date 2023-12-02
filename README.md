@@ -1,5 +1,6 @@
 # Infinite-Exponential-Tower-Fractal-Generator
-<h1> Welcome to a Western University USRI project! Here are the steps to create your own fractal picture similar to the picture found on https://rcorless.github.io/Two-cycles.html </h1>
+<h1> Welcome to a Western University USRI project! Here are the steps to create your own fractal picture similar to the picture found on https://rcorless.github.io/Two-cycles.html 
+These algorithims were used to create the pictures in the following publication: https://mapletransactions.org/index.php/maple/article/view/17003 </h1>
 
 ## Iterated Exponential Fractal
 
